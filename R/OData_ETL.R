@@ -169,10 +169,10 @@ koop_onroerend_raw <- get_cbs_data_all(endpoint_code = "37610", top = 9999) # Wa
 # Use mget() to fetch them from the environment dynamically
 object_names <- ls(pattern = "^koop_.*_raw$")
 datasets <- mget(object_names)
-# saveRDS(datasets, file = here::here("data", "cbs_datasets_raw.rds"))
+# saveRDS(datasets, file = here::here("data-raw", "cbs_datasets_raw.rds"))
 
 # Load -------------------------------------------------------------------
-readRDS(here::here("data", "cbs_datasets_raw.rds")) %>% list2env(envir = .GlobalEnv)
+readRDS(here::here("data-raw", "cbs_datasets_raw.rds")) %>% list2env(envir = .GlobalEnv)
 object_names <- ls(pattern = "^koop_.*$")
 datasets <- mget(object_names)
 
