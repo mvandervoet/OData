@@ -7,14 +7,15 @@ library(scales)
 # 📂 Load list of datasets
 datasets <- readRDS(here::here("data", "cbs_datasets_clean.rds"))
 dataset_lookup <- c(
-  "Bestande koopindex"     = "koop_index",
-  "Nieuwe en bestaande"    = "koop_nieuwbestaand",
-  "Waarde onroerend goed"  = "koop_onroerend",
-  "Koopprijzen per COROP"  = "koop_regio_corop",
-  "Koopprijzen per regio"  = "koop_regio_prijzen",
-  "Regio (koop)"           = "koop_regio",
-  "Type koopwoningen"      = "koop_type",
-  "Uitgaven en bezit"      = "koop_uitgavenbezit"
+  "Prijsindex, aantal verkopen, ontwikkelingen en gemiddelde verkoopprijzen van bestaande koopwoningen in Nederland"     = "koop_index",
+  "Bestaande koopwoningen, prijsindex 2020=100, prijsontwikkeling verkochte bestaande koopwoningen gemiddelde verkoopprijs, woningtype"      = "koop_type",
+  "Prijsindex koopwoningen, prijsindex 2020=100, prijsontwikkeling Verkochte koopwoningen gemiddelde verkoopprijs"           = "koop_regio",
+  "Prijsindex koopwoningen, prijsindex 2020=100, prijsontwikkeling Verkochte koopwoningen gemiddelde verkoopprijs"  = "koop_regio_corop",
+  "Gemiddelde verkoopprijzen van bestaande koopwoningen Nederland, landsdelen, provincies en gemeenten"  = "koop_regio_prijzen",
+  "Gemiddelde WOZ-waarde van woningen verblijfsobjecten met een woonfunctie, eigendom, regio"    = "koop_woz",
+  "Prijsindex, verkrijgen en bezitten koopwoning uitgaven eigenaar verwerven en bezitten nieuwe koopwoning"      = "koop_uitgavenbezit",
+  "Prijsindex koopwoningen, prijsindex 2020=100, prijsontwikkeling Verkochte koopwoningen, gemiddelde verkoopprijs, aantal"    = "koop_nieuwbestaand",
+  "Waarde onroerende zaken van woningen en niet-woningen. Naar Landsdeel, Provincie, COROP, Gemeente."  = "koop_onroerend"
 )
 
 ui <- fluidPage(
