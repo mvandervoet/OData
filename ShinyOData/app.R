@@ -96,25 +96,54 @@ server <- function(input, output, session) {
         filter(.data[[facet_col]] %in% input$facet_values)
     }
     
-    p <- ggplot(filtered, aes_string(x = "TijdLabel", y = input$variabele)) +
-      geom_line(group = 1, color = "#0072B2") +
-      geom_point(color = "#D55E00") +
-      scale_y_continuous(labels = label_comma(big.mark = ".")) +
-      labs(
-        title = paste("Ontwikkeling van", input$variabele),
-        x = "Periode",
-        y = input$variabele
-      ) +
-      theme_minimal() +
-      theme(axis.text.x = element_text(angle = 45, hjust = 1))
+    facet_col <- names(df)[2]
+    n_unique <- length(unique(filtered[[facet_col]]))
+    n_rows <- nrow(filtered)
     
-    # Add facets only if selection > 1
-    if (!is.null(input$facet_values) && length(input$facet_values) > 1) {
-      facet_col <- names(df)[2]
-      p <- p + facet_wrap(as.formula(paste("~", facet_col)))
+    if (n_unique < n_rows) {
+      p <- ggplot(filtered, aes_string(x = "TijdLabel", y = input$variabele, color = facet_col, group = facet_col)) +
+        geom_line() +
+        geom_point() +
+        scale_y_continuous(labels = label_comma(big.mark = ".")) +
+        labs(
+          title = paste("Ontwikkeling van", input$variabele),
+          x = "Periode",
+          y = input$variabele
+        ) +
+        theme_minimal() +
+        theme(axis.text.x = element_text(angle = 45, hjust = 1))
+      
+      # # Add facets only if selection > 1
+      # if (!is.null(input$facet_values) && length(input$facet_values) > 1) {
+      #   facet_col <- names(df)[2]
+      #   p <- p + facet_wrap(as.formula(paste("~", facet_col)))
+      # }
+      
+      p
+    } else {
+      p <- ggplot(filtered, aes_string(x = "TijdLabel", y = input$variabele, color = facet_col, group = facet_col)) +
+        geom_line(group = 1, color = "#0072B2") +
+        geom_point(color = "#D55E00") +
+        scale_y_continuous(labels = label_comma(big.mark = ".")) +
+        labs(
+          title = paste("Ontwikkeling van", input$variabele),
+          x = "Periode",
+          y = input$variabele
+        ) +
+        theme_minimal() +
+        theme(axis.text.x = element_text(angle = 45, hjust = 1))
+      
+      # # Add facets only if selection > 1
+      # if (!is.null(input$facet_values) && length(input$facet_values) > 1) {
+      #   facet_col <- names(df)[2]
+      #   p <- p + facet_wrap(as.formula(paste("~", facet_col)))
+      # }
+      
+      p
     }
     
-    p
+    
+    
   })
 }
 
