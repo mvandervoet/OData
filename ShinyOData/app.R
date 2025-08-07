@@ -17,10 +17,10 @@ dataset_lookup <- c(
   "Prijsindex koopwoningen, prijsindex 2020=100, prijsontwikkeling Verkochte koopwoningen gemiddelde verkoopprijs"           = "koop_regio",
   "Prijsindex koopwoningen, prijsindex 2020=100, prijsontwikkeling Verkochte koopwoningen gemiddelde verkoopprijs"  = "koop_regio_corop",
   "Gemiddelde verkoopprijzen van bestaande koopwoningen Nederland, landsdelen, provincies en gemeenten"  = "koop_regio_prijzen",
-  "Gemiddelde WOZ-waarde van woningen verblijfsobjecten met een woonfunctie, eigendom, regio"    = "koop_woz",
+  "Gemiddelde WOZwaarde van woningen verblijfsobjecten met een woonfunctie, eigendom, regio"    = "koop_woz",
   "Prijsindex, verkrijgen en bezitten koopwoning uitgaven eigenaar verwerven en bezitten nieuwe koopwoning"      = "koop_uitgavenbezit",
   "Prijsindex koopwoningen, prijsindex 2020=100, prijsontwikkeling Verkochte koopwoningen, gemiddelde verkoopprijs, aantal"    = "koop_nieuwbestaand",
-  "Waarde onroerende zaken van woningen en niet-woningen. Naar Landsdeel, Provincie, COROP, Gemeente."  = "koop_onroerend"
+  "Waarde onroerende zaken van woningen en nietwoningen. Naar Landsdeel, Provincie, COROP, Gemeente."  = "koop_onroerend"
 )
 
 ui <- fluidPage(
@@ -60,7 +60,7 @@ server <- function(input, output, session) {
   output$var_selector <- renderUI({
     df <- selected_data()
     num_vars <- names(df)[sapply(df, is.numeric)]
-    selectInput("variabele", "Kies een variabele (needed if ID is not linear):", choices = num_vars, width = "100%")
+    selectInput("variabele", "Kies een grafiek:", choices = num_vars, width = "100%")
   })
   
   # 📆 UI: Selecteer PeriodeType
