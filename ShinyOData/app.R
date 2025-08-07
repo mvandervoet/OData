@@ -22,11 +22,12 @@ ui <- fluidPage(
   titlePanel("Interactieve CBS woningmarkt visualisatie"),
   
   fluidRow(
-    column(4,
+    column(6,
            selectInput(
              inputId = "dataset_name",
              label = "Kies een dataset:",
              choices = dataset_lookup,
+             width = "100%",
              selected = names(dataset_lookup)[1]
            ),
            uiOutput("var_selector"),
