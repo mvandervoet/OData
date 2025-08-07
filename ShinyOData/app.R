@@ -5,7 +5,7 @@ library(readr)
 library(scales)
 
 # 📂 Load list of datasets
-datasets <- readRDS(here::here("data", "cbs_datasets_clean.rds"))
+datasets <- readRDS("data/cbs_datasets_clean.rds")
 # 🧹 Remove ID column from all dataframes (if it exists)
 datasets <- lapply(datasets, function(df) {
   if ("ID" %in% names(df)) df <- df %>% select(-ID)
