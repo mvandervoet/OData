@@ -55,7 +55,7 @@ server <- function(input, output, session) {
   output$var_selector <- renderUI({
     df <- selected_data()
     num_vars <- names(df)[sapply(df, is.numeric)]
-    selectInput("variabele", "Kies een variabele (needed if ID is not linear):", choices = num_vars)
+    selectInput("variabele", "Kies een variabele (needed if ID is not linear):", choices = num_vars, width = "100%")
   })
   
   # 📆 UI: Selecteer PeriodeType
