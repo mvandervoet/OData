@@ -288,6 +288,11 @@ datasets_cleaned_columns <- lapply(datasets_cleaned_titles, function(x) {
       ),
       TijdLabel = factor(TijdLabel, levels = unique(TijdLabel), ordered = TRUE)
     )
+  output <- output %>%
+    mutate(PeriodeType = recode(PeriodeType,
+                                "KW" = "Quarter",
+                                "JJ" = "Year",
+                                "MM" = "Month"))
   output
 })
 test <- datasets_cleaned_columns$koop_type_raw
