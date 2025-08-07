@@ -266,6 +266,7 @@ datasets_cleaned_titles <- lapply(datasets, function(x) {
   names(typed) <- gsub("'", "", names(typed), fixed = TRUE)
   names(typed) <- gsub("%", "pct", names(typed), fixed = TRUE)
   names(typed) <- gsub(".", "", names(typed), fixed = TRUE)
+  names(typed) <- gsub("-", "", names(typed), fixed = TRUE)
   names(typed) <- gsub("[^a-zA-Z0-9_]", "", names(typed), fixed = TRUE)
   typed
 })
