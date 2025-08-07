@@ -192,8 +192,9 @@ datasets_cleaned_titles <- lapply(datasets, function(x) {
       FullTitle = ifelse(
         is.na(ParentTitle),
         Title,
-        paste0(Title, "__", ParentTitle, "__")
+        paste0(Title, "__", ParentTitle)
       ),
+      FullTitle = gsub("  ", " ", FullTitle),  # ✅ Replace spaces with underscores
       FullTitle = gsub(" ", "_", FullTitle)  # ✅ Replace spaces with underscores
     ) %>%
     dplyr::select(Key, FullTitle)
@@ -261,7 +262,11 @@ datasets_cleaned_titles <- lapply(datasets, function(x) {
         select(-Title)  # Remove temp join column
     }
   }
-  names(typed) <- gsub("Regio's", "Regio", names(typed), fixed = TRUE)
+  names(typed) <- gsub("'", "", names(typed), fixed = TRUE)
+  names(typed) <- gsub("%", "pct", names(typed), fixed = TRUE)
+  names(typed) <- gsub(".", "", names(typed), fixed = TRUE)
+  names(typed) <- gsub("[^a-zA-Z0-9_]", "", column_names)
+  
   typed
 })
 test <- datasets_cleaned_titles$koop_regio_corop_raw
