@@ -180,6 +180,7 @@ datasets <- mget(object_names)
 
 # Rename columns in each dataset using metadata
 datasets_cleaned_titles <- lapply(datasets, function(x) {
+  #x <- datasets$koop_type
   typed <- x$TypedDataSet
   meta  <- x$DataProperties
   
@@ -192,7 +193,7 @@ datasets_cleaned_titles <- lapply(datasets, function(x) {
       FullTitle = ifelse(
         is.na(ParentTitle),
         Title,
-        paste0(Title, "__", ParentTitle)
+        paste0(ParentTitle, "__", Title)
       ),
       FullTitle = gsub("  ", " ", FullTitle),  # ✅ Replace spaces with underscores
       FullTitle = gsub(" ", "_", FullTitle)  # ✅ Replace spaces with underscores
@@ -265,8 +266,7 @@ datasets_cleaned_titles <- lapply(datasets, function(x) {
   names(typed) <- gsub("'", "", names(typed), fixed = TRUE)
   names(typed) <- gsub("%", "pct", names(typed), fixed = TRUE)
   names(typed) <- gsub(".", "", names(typed), fixed = TRUE)
-  names(typed) <- gsub("[^a-zA-Z0-9_]", "", column_names)
-  
+  names(typed) <- gsub("[^a-zA-Z0-9_]", "", names(typed), fixed = TRUE)
   typed
 })
 test <- datasets_cleaned_titles$koop_regio_corop_raw
