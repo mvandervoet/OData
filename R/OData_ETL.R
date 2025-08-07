@@ -302,6 +302,7 @@ test <- datasets_cleaned_columns$koop_type_raw
 # Use mget() to fetch them from the environment dynamically
 names(datasets_cleaned_columns) <- gsub("_raw$", "", names(datasets_cleaned_columns))
 saveRDS(datasets_cleaned_columns, file = here::here("data", "cbs_datasets_clean.rds"))
+saveRDS(datasets_cleaned_columns, file = here::here("ShinyOData/data", "cbs_datasets_clean.rds"))
 
 
 readRDS(here::here("data", "cbs_datasets_clean.rds")) %>% list2env(envir = .GlobalEnv)
