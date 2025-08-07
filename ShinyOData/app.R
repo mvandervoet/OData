@@ -6,6 +6,11 @@ library(scales)
 
 # 📂 Load list of datasets
 datasets <- readRDS(here::here("data", "cbs_datasets_clean.rds"))
+# 🧹 Remove ID column from all dataframes (if it exists)
+datasets <- lapply(datasets, function(df) {
+  if ("ID" %in% names(df)) df <- df %>% select(-ID)
+  df
+})
 dataset_lookup <- c(
   "Prijsindex, aantal verkopen, ontwikkelingen en gemiddelde verkoopprijzen van bestaande koopwoningen in Nederland"     = "koop_index",
   "Bestaande koopwoningen, prijsindex 2020=100, prijsontwikkeling verkochte bestaande koopwoningen gemiddelde verkoopprijs, woningtype"      = "koop_type",
@@ -69,12 +74,12 @@ server <- function(input, output, session) {
     df <- selected_data()
     if (ncol(df) < 2) return(NULL)
     
-    second_col <- names(df)[2]
-    values <- unique(df[[2]])
+    second_col <- names(df)[1]
+    values <- unique(df[[1]])
     
     selectInput(
       "facet_values",
-      label = paste0("Kies facetten uit: ", second_col),
+      label = paste0("Filter data: ", second_col),
       choices = values,
       selected = NULL,
       multiple = TRUE
@@ -91,12 +96,12 @@ server <- function(input, output, session) {
     
     # Optional: filter on user-selected facets
     if (!is.null(input$facet_values) && length(input$facet_values) > 0) {
-      facet_col <- names(df)[2]
+      facet_col <- names(df)[1]
       filtered <- filtered %>%
         filter(.data[[facet_col]] %in% input$facet_values)
     }
     
-    facet_col <- names(df)[2]
+    facet_col <- names(df)[1]
     n_unique <- length(unique(filtered[[facet_col]]))
     n_rows <- nrow(filtered)
     
@@ -115,7 +120,7 @@ server <- function(input, output, session) {
       
       # # Add facets only if selection > 1
       # if (!is.null(input$facet_values) && length(input$facet_values) > 1) {
-      #   facet_col <- names(df)[2]
+      #   facet_col <- names(df)[1]
       #   p <- p + facet_wrap(as.formula(paste("~", facet_col)))
       # }
       
@@ -135,7 +140,7 @@ server <- function(input, output, session) {
       
       # # Add facets only if selection > 1
       # if (!is.null(input$facet_values) && length(input$facet_values) > 1) {
-      #   facet_col <- names(df)[2]
+      #   facet_col <- names(df)[1]
       #   p <- p + facet_wrap(as.formula(paste("~", facet_col)))
       # }
       
